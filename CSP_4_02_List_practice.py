@@ -12,7 +12,7 @@ def bookends(list: list):
     ListNew = [list[0], list[-1]]
     list.pop(0)
     list.pop(-1)
-    return ListNew, list
+    return ListNew
 
 
 
@@ -22,7 +22,7 @@ def inOrder(list : list):
     :param list:
     :return:
     """
-    for i in range(len(list)):
+    for i in range(len(list) - 1):
         if list[i] > list[i + 1]:
             return False
     return True
@@ -58,12 +58,13 @@ def removeLowest(list):
     :param list:
     :return:
     """
-    x = list[0]
+    x = 0
     for i in range(len(list)):
-        if list[i] < x:
+        if list[i] < list[x]:
             x = i
     list.pop(x)
     return(list)
+
 
 def keepOrder(list: list, value):
     """
@@ -75,7 +76,11 @@ def keepOrder(list: list, value):
     :return:
     """
     for i in range (len(list)):
-        if list[i] < value and value < list[i+1]:
+        if value > list[-1]:
+            list.append(value)
+        elif value < list[0]:
+            list.insert(0,value)
+        elif list[i] < value and value < list[i+1]:
             list.insert(i+1,value)
     return(list)
 
