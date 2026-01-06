@@ -1,5 +1,5 @@
 
-def bookends(li: list):
+def bookends(list: list):
     """
     Given a list of numbers remove the first and last elements from the list and
     return a new list of those two elements.
@@ -9,19 +9,25 @@ def bookends(li: list):
     :param list:
     :return:
     """
+    ListNew = [list[0], list[-1]]
+    list.pop(0)
+    list.pop(-1)
+    return ListNew, list
 
 
 
-def inOrder(li : list):
+def inOrder(list : list):
     """
     Given a list of numbers return true if the list is in ascending order.
     :param list:
     :return:
     """
+    for i in range(len(list)):
+        if list[i] > list[i + 1]:
+            return False
+    return True
 
-
-
-def find(li: list, target : int):
+def find(list: list, target : int):
     """
     Given a list of numbers and a target value return the index location of the
     target value within the list.
@@ -38,9 +44,13 @@ def find(li: list, target : int):
     :param target:
     :return:
     """
+    for i in range(len(list)):
+        if list[i] == target:
+            return(i)
+    return(-1)
 
 
-def removeLowest(li):
+def removeLowest(list):
     """
     Given a list of numbers remove the lowest element from the list. You may assume the list is at least 1 element long.
     If there are multiple of the lowest number you just need to remove 1.
@@ -48,9 +58,14 @@ def removeLowest(li):
     :param list:
     :return:
     """
+    x = list[0]
+    for i in range(len(list)):
+        if list[i] < x:
+            x = i
+    list.pop(x)
+    return(list)
 
-
-def keepOrder(li: list, value):
+def keepOrder(list: list, value):
     """
     Given a list of numbers that is in order and a value. Place the value into the
     list such that the list is still in order.
@@ -59,9 +74,13 @@ def keepOrder(li: list, value):
     :param value:
     :return:
     """
+    for i in range (len(list)):
+        if list[i] < value and value < list[i+1]:
+            list.insert(i+1,value)
+    return(list)
 
-
-def merge(l1:list, l2:list):
+import itertools
+def merge(list1:list, list2:list):
     """
     Given two lists that are in order. produce a new list that is the two lists merged together and in order.
     Make sure to now modify either of the original lists.
@@ -70,4 +89,16 @@ def merge(l1:list, l2:list):
     :param l2:
     :return:
     """
-    
+    listMerge = list1.copy()
+    i = 0
+    i2 = 0
+    while len(listMerge) < len(list1) + len(list2):
+        if list2[i2] > list1[-1]:
+            listMerge.append(list2[i2])
+            i2 += 1
+        elif listMerge[i] < list2[i2] and list2[i2] < listMerge[i + 1]:
+            listMerge.insert(i+1,list2[i2])
+            i2 += 1
+        else:
+            i += 1
+    return(listMerge)
